@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Files\CreamyBurgersLogo.png" />
+    <None Remove="Files\logo.png" />
+    <None Remove="Files\Logo2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Files\CreamyBurgersLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
