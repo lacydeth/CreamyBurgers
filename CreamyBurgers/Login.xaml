@@ -31,7 +31,7 @@
         <PasswordBox Width="150" Height="30" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="0,5,0,0"/>
 
         <Button Content="Bejelentkezés" Width="100" Height="30" Grid.Row="2" Grid.Column="0" Margin="0,10,0,0" HorizontalAlignment="Center" Click="LoginButton_Click"/>
-        <Button Content="Regisztráció" Width="100" Height="30" Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+        <Button Content="Regisztráció" Width="100" Height="30" Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Center" Click="RegistrationButton_Click"/>
 
         <TextBlock Text="Nincs fiókod?" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Grid.Row="2" Grid.Column="1"/>
     </Grid>

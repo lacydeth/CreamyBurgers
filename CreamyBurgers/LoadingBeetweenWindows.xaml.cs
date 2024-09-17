@@ -37,7 +37,6 @@ namespace CreamyBurgers
             lblStatus.Text = statusMessages[randomIndex];
             await Task.Delay(1000);
 
-            // Fix üzenetek
             lblStatus.Text = "Adatok szinkronizálása...";
             await Task.Delay(1000);
 

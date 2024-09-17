@@ -15,5 +15,13 @@ namespace CreamyBurgers
             loadingWindow.Show();
             this.Close();
         }
+
+        private void RegistrationButton_Click(object sender, RoutedEventArgs e)
+        {
+            Registration registrationWindow = new Registration();
+            registrationWindow.Show();
+            this.Close(); 
+        }
+
     }
 }
