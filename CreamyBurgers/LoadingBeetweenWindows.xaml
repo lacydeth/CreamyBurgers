@@ -1,12 +1,27 @@
 ﻿<Window x:Class="CreamyBurgers.LoadingBeetweenWindows"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CreamyBurgers"
-        mc:Ignorable="d"
-        Title="LoadingBeetweenWindows" Height="450" Width="800">
-    <Grid>
-        <TextBlock x:Name="lblStatus" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
-    </Grid>
+        Title="Loading..." Height="500" Width="450"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/StyleGrid.xaml"/>
+                <ResourceDictionary Source="Styles/StyleButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleTextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border Style="{DynamicResource Border}" Margin="0" Padding="10">
+        <Border Style="{StaticResource MainBorder}">
+            <Grid Style="{DynamicResource Grid}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="lblStatus" FontSize="16" FontWeight="Bold" 
+                               HorizontalAlignment="Center" Foreground="Black" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
 </Window>

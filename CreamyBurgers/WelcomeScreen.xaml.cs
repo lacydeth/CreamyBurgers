@@ -1,37 +1,82 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace CreamyBurgers
 {
-    public partial class LoadingWindow : Window
+    public partial class WelcomeScreen : Window
     {
-        MainWindow newwindow = new MainWindow();
-        private string fullText = "Üdvözöljük a Creamy Burgers-ben!";
-        private int currentIndex = 0;
+        private DispatcherTimer textTimer;
+        private DispatcherTimer delayTimer;
+        private string welcomeMessage = "Üdvözöljük a CreamyBurgers világában!";
+        private string descriptionMessage = "Fedezd fel a legjobb ízeket, és rendelj most!";
+        private int welcomeIndex = 0;
+        private int descriptionIndex = 0;
+        private bool isWelcomeComplete = false;
 
-        public LoadingWindow()
+        public WelcomeScreen()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
+            StartTextAnimation();
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void StartTextAnimation()
         {
-            await TypeTextAsync();
+            textTimer = new DispatcherTimer();
+            textTimer.Interval = TimeSpan.FromMilliseconds(50);
+            textTimer.Tick += TextTimer_Tick;
+            textTimer.Start();
         }
 
-        private async Task TypeTextAsync()
+        private void TextTimer_Tick(object sender, EventArgs e)
         {
-            while (currentIndex < fullText.Length)
+            if (!isWelcomeComplete)
             {
-                lblfelirat.Text += fullText[currentIndex];
-                currentIndex++;
-                await Task.Delay(50);
+                if (welcomeIndex < welcomeMessage.Length)
+                {
+                    WelcomeTextBlock.Text += welcomeMessage[welcomeIndex];
+                    welcomeIndex++;
+                }
+                else
+                {
+                    isWelcomeComplete = true;
+                    textTimer.Interval = TimeSpan.FromMilliseconds(35);
+                }
             }
-            await Task.Delay(1500);
+            else
+            {
+                if (descriptionIndex < descriptionMessage.Length)
+                {
+                    DescriptionTextBlock.Text += descriptionMessage[descriptionIndex];
+                    descriptionIndex++;
+                }
+                else
+                {
+                    textTimer.Stop();
+                    StartDelayTimer();
+                }
+            }
+        }
+
+        private void StartDelayTimer()
+        {
+            delayTimer = new DispatcherTimer();
+            delayTimer.Interval = TimeSpan.FromSeconds(2.5); 
+            delayTimer.Tick += DelayTimer_Tick;
+            delayTimer.Start();
+        }
+
+        private void DelayTimer_Tick(object sender, EventArgs e)
+        {
+            delayTimer.Stop();
+            OpenLoginWindow();
+        }
+
+        private void OpenLoginWindow()
+        {
+            MainWindow loginWindow = new MainWindow();
+            loginWindow.Show();
             this.Close();
-            newwindow.Show();
         }
     }
 }
