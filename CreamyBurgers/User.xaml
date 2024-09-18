@@ -11,19 +11,21 @@
                 <ResourceDictionary Source="Styles/StyleGrid.xaml"/>
                 <ResourceDictionary Source="Styles/StyleButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleTextBox.xaml"/>
-                <ResourceDictionary Source="Styles/StyleComboBox.xaml"/>
+                <ResourceDictionary Source="Styles/StyleFont.xaml"/>
                 <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleMenuButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleLogoutButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border Style="{DynamicResource MainBorder}">
-        <Border Style="{DynamicResource Border}">
-            <Grid x:Name="MainGrid" Style="{DynamicResource Grid}">
+    <Border Style="{DynamicResource Border}" Margin="0" Padding="10">
+        <Border Style="{DynamicResource MainBorder}">
+            <Grid Style="{DynamicResource Grid}">
+                <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
                 <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
-                    <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="265" Height="175" Margin="0,0,0,10"/>
-                </StackPanel>
+                <Button x:Name="UserButton" Style="{DynamicResource MenuButtonStyle}" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Click="UserButton_Click"/>
+                <Button x:Name="LogoutButton" Style="{DynamicResource LogoutButtonStyle}" Margin="5" VerticalAlignment="Bottom" Click="LogoutButton_Click"/>
             </Grid>
         </Border>
     </Border>
