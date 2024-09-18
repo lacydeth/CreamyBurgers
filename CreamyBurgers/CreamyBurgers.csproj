@@ -9,15 +9,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Files\**" />
+    <EmbeddedResource Remove="Files\**" />
+    <None Remove="Files\**" />
+    <Page Remove="Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Styles\Files\close.png" />
     <None Remove="Styles\Files\CreamyBurgersLogo.png" />
     <None Remove="Styles\Files\log-out.png" />
     <None Remove="Styles\Files\logo.png" />
     <None Remove="Styles\Files\Logo2.png" />
+    <None Remove="Styles\Files\menu.png" />
+    <None Remove="Styles\Files\user.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Styles\Files\close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\CreamyBurgersLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Styles\Files\log-out.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\menu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -26,12 +47,6 @@
     <PackageReference Include="BCrypt.Net" Version="0.1.0" />
     <PackageReference Include="EasyEncryption" Version="1.0.2" />
     <PackageReference Include="MySql.Data" Version="9.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Files\CreamyBurgersLogo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
 </Project>
