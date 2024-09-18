@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
 using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Windows;
+using Microsoft.Data.Sqlite;  // Use Microsoft.Data.Sqlite
 using EasyEncryption;
 
 namespace CreamyBurgers
@@ -12,43 +12,44 @@ namespace CreamyBurgers
         {
             InitializeComponent();
         }
-        readonly private string conn = "server=localhost;port=3306;database=creamyburgers;user=root;password=";
+
+        // SQLite connection string (adjust the path to your database file)
+        readonly private string conn = "Data Source=creamyburgers.db";
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string username = tbUsername.Text.Trim();
             string password = EasyEncryption.MD5.ComputeMD5Hash(tbPassword.Password);
 
-
-            if (username != "" && password != "")
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
             {
                 try
                 {
-                    MySqlConnection sqlConn = new MySqlConnection(conn);
-                    using (sqlConn)
+                    using (var sqlConn = new SqliteConnection(conn))
                     {
                         sqlConn.Open();
                         string query = "SELECT username, password FROM users WHERE username=@username AND password=@password";
 
-                        MySqlDataAdapter adapter = new MySqlDataAdapter(query, sqlConn);
-                        adapter.SelectCommand.Parameters.AddWithValue("@username", username);
-                        adapter.SelectCommand.Parameters.AddWithValue("@password", password);
-
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-
-                        if (table.Rows.Count > 0)
+                        using (var sqlCommand = new SqliteCommand(query, sqlConn))
                         {
-                            sqlConn.Close();
-                            LoadingBeetweenWindows loadingWindow = new LoadingBeetweenWindows();
-                            loadingWindow.Show();
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Hibás adatok!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+                            sqlCommand.Parameters.AddWithValue("@username", username);
+                            sqlCommand.Parameters.AddWithValue("@password", password);
 
+                            using (SqliteDataReader reader = sqlCommand.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    sqlConn.Close();
+                                    LoadingBeetweenWindows loadingWindow = new LoadingBeetweenWindows();
+                                    loadingWindow.Show();
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Hibás adatok!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+                            }
+                        }
                     }
                 }
                 catch (Exception err)
@@ -58,17 +59,15 @@ namespace CreamyBurgers
             }
             else
             {
-                MessageBox.Show("Adj meg felhasználónevet és jelszót!", "Hiba", MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("Adj meg felhasználónevet és jelszót!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-            
 
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
             Registration registrationWindow = new Registration();
             registrationWindow.Show();
-            this.Close(); 
+            this.Close();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
