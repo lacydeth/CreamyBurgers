@@ -24,19 +24,22 @@ namespace CreamyBurgers
             InitializeComponent();
         }
 
-        private void UserButton_Click(object sender, RoutedEventArgs e)
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
-        {
+            MainWindow ablak = new();
+            ablak.Show();
+            this.Close();
 
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
 
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleMenuButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleLogoutButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleUserButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -22,10 +23,22 @@
     <Border Style="{DynamicResource Border}" Margin="0" Padding="10">
         <Border Style="{DynamicResource MainBorder}">
             <Grid Style="{DynamicResource Grid}">
-                <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
-                <Button x:Name="UserButton" Style="{DynamicResource MenuButtonStyle}" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Click="UserButton_Click"/>
-                <Button x:Name="LogoutButton" Style="{DynamicResource LogoutButtonStyle}" Margin="5" VerticalAlignment="Bottom" Click="LogoutButton_Click"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0" x:Name="NavColumn" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Background="SaddleBrown" Width="200" Visibility="Collapsed" Grid.Column="0" x:Name="NavBar">
+                    <Button Style="{DynamicResource UserButtonStyle}" Click="NavButton_Click"/>
+                    <!-- Itt lehet más gombokat is hozzáadni a navigációs sávhoz -->
+                </StackPanel>
+
+                <Grid Grid.Column="1">
+                    <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
+                    <Button x:Name="UserButton" Style="{DynamicResource MenuButtonStyle}" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Click="UserButton_Click"/>
+                    <Button x:Name="LogoutButton" Style="{DynamicResource LogoutButtonStyle}" Margin="5" VerticalAlignment="Bottom" Click="LogoutButton_Click"/>
+                </Grid>
             </Grid>
         </Border>
     </Border>
