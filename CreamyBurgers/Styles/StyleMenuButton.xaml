@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="CloseButtonStyle" TargetType="Button">
+    <Style x:Key="MenuButtonStyle" TargetType="Button">
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
@@ -13,7 +13,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="Wheat">
-                        <Image Source="Files/close.png"/>
+                        <Image Source="Files/menu.png"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -22,7 +22,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="Transparent"/>
-                
+
             </Trigger>
         </Style.Triggers>
 
