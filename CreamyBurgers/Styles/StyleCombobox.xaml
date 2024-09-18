@@ -6,7 +6,7 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="BorderBrush" Value="SaddleBrown"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Template">

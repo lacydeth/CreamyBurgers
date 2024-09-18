@@ -15,8 +15,8 @@
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Height" To="33" Duration="0:0:0.2"/>
-                            <DoubleAnimation Storyboard.TargetProperty="Width" To="200" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="30" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="170" Duration="0:0:0.2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
@@ -47,8 +47,8 @@
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Height" To="33" Duration="0:0:0.2"/>
-                            <DoubleAnimation Storyboard.TargetProperty="Width" To="200" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Height" To="30" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Width" To="170" Duration="0:0:0.2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>

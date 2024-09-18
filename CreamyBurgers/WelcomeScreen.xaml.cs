@@ -40,7 +40,7 @@ namespace CreamyBurgers
                 else
                 {
                     isWelcomeComplete = true;
-                    textTimer.Interval = TimeSpan.FromMilliseconds(35);
+                    textTimer.Interval = TimeSpan.FromMilliseconds(5);
                 }
             }
             else
@@ -61,7 +61,7 @@ namespace CreamyBurgers
         private void StartDelayTimer()
         {
             delayTimer = new DispatcherTimer();
-            delayTimer.Interval = TimeSpan.FromSeconds(2.5); 
+            delayTimer.Interval = TimeSpan.FromSeconds(3); 
             delayTimer.Tick += DelayTimer_Tick;
             delayTimer.Start();
         }

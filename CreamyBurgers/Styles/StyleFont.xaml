@@ -8,5 +8,4 @@
         <Setter Property="FontFamily" Value="Segoe UI"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
-
 </ResourceDictionary>
