@@ -1,0 +1,31 @@
+﻿<Window x:Class="CreamyBurgers.MyUserSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CreamyBurgers User Settings" Height="450" Width="800"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/StyleGrid.xaml"/>
+                <ResourceDictionary Source="Styles/StyleButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleTextBox.xaml"/>
+                <ResourceDictionary Source="Styles/StyleFont.xaml"/>
+                <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleMenuButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleLogoutButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border Style="{DynamicResource Border}" Margin="0" Padding="10">
+        <Border Style="{DynamicResource MainBorder}">
+            <Grid Style="{DynamicResource Grid}">
+                <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
+                <Button x:Name="UserButton" Style="{DynamicResource MenuButtonStyle}" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Click="UserButton_Click"/>
+                <Button x:Name="MenuButton" Style="{DynamicResource LogoutButtonStyle}" Margin="5" VerticalAlignment="Bottom" Click="MenuButton_Click"/>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

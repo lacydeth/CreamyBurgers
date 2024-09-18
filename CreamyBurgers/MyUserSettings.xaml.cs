@@ -15,18 +15,23 @@ using System.Windows.Shapes;
 namespace CreamyBurgers
 {
     /// <summary>
-    /// Interaction logic for User.xaml
+    /// Interaction logic for MyUserSettings.xaml
     /// </summary>
-    public partial class User : Window
+    public partial class MyUserSettings : Window
     {
-        public User()
+        public MyUserSettings()
         {
             InitializeComponent();
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void UserButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+
+        }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

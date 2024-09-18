@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Styles/StyleButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleTextBox.xaml"/>
                 <ResourceDictionary Source="Styles/StyleFont.xaml"/>
+                <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -17,8 +18,9 @@
     <Border Style="{DynamicResource Border}" Margin="0" Padding="10">
         <Border Style="{DynamicResource MainBorder}">
         <Grid Style="{DynamicResource Grid}">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
-                <Image Source="Files/CreamyBurgersLogo.png" Width="265" Height="175" Margin="0,0,0,10"/>
+                <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="265" Height="175" Margin="0,0,0,10"/>
                     <TextBlock Style="{DynamicResource ModernTextBlock}" Text="Felhasználónév:" Margin="10"/>
                 <TextBox x:Name="tbUsername" Style="{DynamicResource Textbox}" Width="150" Height="30" Margin="10"/>
                 <TextBlock Style="{DynamicResource ModernTextBlock}" Text="Jelszó:" Margin="10"/>
