@@ -9,13 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Files\CreamyBurgersLogo.png" />
-    <None Remove="Files\logo.png" />
-    <None Remove="Files\Logo2.png" />
+    <None Remove="Styles\Files\close.png" />
+    <None Remove="Styles\Files\CreamyBurgersLogo.png" />
+    <None Remove="Styles\Files\log-out.png" />
+    <None Remove="Styles\Files\logo.png" />
+    <None Remove="Styles\Files\Logo2.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Files\CreamyBurgersLogo.png">
+    <Resource Include="Styles\Files\log-out.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Styles\Files\close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\CreamyBurgersLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

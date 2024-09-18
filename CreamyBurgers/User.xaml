@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Styles/StyleButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleTextBox.xaml"/>
                 <ResourceDictionary Source="Styles/StyleComboBox.xaml"/>
+                <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -19,10 +20,11 @@
     <Border Style="{DynamicResource MainBorder}">
         <Border Style="{DynamicResource Border}">
             <Grid x:Name="MainGrid" Style="{DynamicResource Grid}">
+                <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
-                <Image Source="Files/CreamyBurgersLogo.png" Width="265" Height="175" Margin="0,0,0,10"/>
-            </StackPanel>
-        </Grid>
-    </Border>
+                    <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="265" Height="175" Margin="0,0,0,10"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Border>
 </Window>

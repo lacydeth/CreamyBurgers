@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Styles/StyleGrid.xaml"/>
                 <ResourceDictionary Source="Styles/StyleButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleTextBox.xaml"/>
+                <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -17,8 +18,9 @@
     <Border Style="{StaticResource Border}" Margin="0" Padding="10">
         <Border Style="{StaticResource MainBorder}">
             <Grid Style="{DynamicResource Grid}">
+                <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Image Source="Files/CreamyBurgersLogo.png" Width="265" Height="175" Margin="0,0,0,10"/>
+                    <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="265" Height="175" Margin="0,0,0,10"/>
                     <TextBlock x:Name="WelcomeTextBlock" Text="" FontSize="20" FontWeight="Bold" 
                                HorizontalAlignment="Center" Margin="10" Foreground="Black"/>
                     <TextBlock x:Name="DescriptionTextBlock" Text="" 
