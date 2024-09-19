@@ -17,19 +17,17 @@ namespace CreamyBurgers
 
         private void UserButton_Click(object sender, RoutedEventArgs e)
         {
-            // Check if the NavBar is visible before proceeding
             if (NavBar.Visibility == Visibility.Visible)
             {
-                // Open the MyUserSettings window
+                NavBar.Visibility = Visibility.Collapsed;
+                NavColumn.Width = new GridLength(0);
             }
             else
             {
-                // Toggle the visibility of the navigation bar
                 NavBar.Visibility = Visibility.Visible;
                 NavColumn.Width = new GridLength(200);
             }
         }
-
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
@@ -42,6 +40,7 @@ namespace CreamyBurgers
         {
             MyUserSettings myUserSettings = new MyUserSettings();
             myUserSettings.Show();
+            this.Close();
         }
     }
 }

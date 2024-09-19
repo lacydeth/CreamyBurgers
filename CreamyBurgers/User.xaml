@@ -30,7 +30,6 @@
 
                 <StackPanel Background="SaddleBrown" Width="200" Visibility="Collapsed" Grid.Column="0" x:Name="NavBar">
                     <Button Style="{DynamicResource UserButtonStyle}" Click="NavButton_Click"/>
-                    <!-- Itt lehet más gombokat is hozzáadni a navigációs sávhoz -->
                 </StackPanel>
 
                 <Grid Grid.Column="1">
