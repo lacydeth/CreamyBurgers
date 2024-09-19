@@ -24,14 +24,6 @@ namespace CreamyBurgers
             InitializeComponent();
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow ablak = new();
-            ablak.Show();
-            this.Close();
-
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -39,7 +31,43 @@ namespace CreamyBurgers
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
+            if (NavBar.Visibility == Visibility.Visible)
+            {
+                NavBar.Visibility = Visibility.Collapsed;
+                NavColumn.Width = new GridLength(0);
+            }
+            else
+            {
+                NavBar.Visibility = Visibility.Visible;
+                NavColumn.Width = new GridLength(200);
+            }
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             this.Close();
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            User mainwindow = new User();
+            mainwindow.Show();
+            this.Close();
+        }
+
+        private void ProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            MyUserSettings myUserSettings = new MyUserSettings();
+            myUserSettings.Show();
+            this.Close();
+        }
+
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            //rendelések xaml?
+
         }
     }
 }

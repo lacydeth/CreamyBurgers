@@ -14,6 +14,10 @@
                 <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleMenuButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleLogoutButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleUserButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleOrderButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleHomeButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleLogoutNavButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -21,10 +25,32 @@
     <Border Style="{DynamicResource Border}" Margin="0" Padding="10">
         <Border Style="{DynamicResource MainBorder}">
             <Grid Style="{DynamicResource Grid}">
-                <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
-                <Button x:Name="MenuButton" Style="{DynamicResource MenuButtonStyle}" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Click="MenuButton_Click"/>
-                <Button x:Name="LogoutButton" Style="{DynamicResource LogoutButtonStyle}" Margin="5" VerticalAlignment="Bottom" Click="LogoutButton_Click"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0" x:Name="NavColumn" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Background="SaddleBrown" Width="200" Visibility="Collapsed" Grid.Column="0" x:Name="NavBar">
+                    <Button Style="{DynamicResource HomeButtonStyle}" Content="Kezdőlap" Click="HomeButton_Click" DockPanel.Dock="Top"/>
+                    <Button Style="{DynamicResource OrderButtonStyle}" Content="Rendeléseim" Click="OrderButton_Click" DockPanel.Dock="Top"/>
+                    <Button Style="{DynamicResource UserButtonStyle}" Content="Profil" Click="ProfileButton_Click" DockPanel.Dock="Top"/>
+                    <Button Style="{DynamicResource NavLogoutButtonStyle}" Content="Kijelentkezés" Click="LogoutButton_Click" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"/>
+                </DockPanel>
+
+                <Grid Grid.Column="1">
+                    <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
+                    <Button x:Name="MenuButton" Style="{DynamicResource MenuButtonStyle}" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Click="MenuButton_Click"/>
+
+                    <!-- TextBlock for "Profil" -->
+                    <TextBlock Text="Profil" 
+                               HorizontalAlignment="Right" 
+                               VerticalAlignment="Bottom" 
+                               Margin="10" 
+                               Foreground="White" 
+                               FontSize="16" 
+                               Opacity="0.7" />
+                </Grid>
             </Grid>
         </Border>
     </Border>

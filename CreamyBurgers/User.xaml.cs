@@ -15,7 +15,7 @@ namespace CreamyBurgers
             this.Close();
         }
 
-        private void UserButton_Click(object sender, RoutedEventArgs e)
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavBar.Visibility == Visibility.Visible)
             {
@@ -36,11 +36,24 @@ namespace CreamyBurgers
             this.Close();
         }
 
-        private void NavButton_Click(object sender, RoutedEventArgs e)
+        private void ProfileButton_Click(object sender, RoutedEventArgs e)
         {
             MyUserSettings myUserSettings = new MyUserSettings();
             myUserSettings.Show();
             this.Close();
         }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            User homePage = new User();
+            homePage.Show();
+            this.Close();
+        }
+
+        private void OrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            //rendelések xaml?
+        }
+
     }
 }
