@@ -18,11 +18,20 @@
   <ItemGroup>
     <None Remove="Styles\Files\close.png" />
     <None Remove="Styles\Files\CreamyBurgersLogo.png" />
+    <None Remove="Styles\Files\home.png" />
+    <None Remove="Styles\Files\homeWheat.png" />
     <None Remove="Styles\Files\log-out.png" />
     <None Remove="Styles\Files\logo.png" />
     <None Remove="Styles\Files\Logo2.png" />
+    <None Remove="Styles\Files\logoutWheat.png" />
     <None Remove="Styles\Files\menu.png" />
+    <None Remove="Styles\Files\menuWheat.png" />
+    <None Remove="Styles\Files\order.png" />
+    <None Remove="Styles\Files\orderWheat.png" />
+    <None Remove="Styles\Files\save.png" />
+    <None Remove="Styles\Files\saveWheat.png" />
     <None Remove="Styles\Files\user.png" />
+    <None Remove="Styles\Files\userWheat.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,13 +41,40 @@
     <Resource Include="Styles\Files\CreamyBurgersLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Styles\Files\home.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\homeWheat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Styles\Files\log-out.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\logoutWheat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Styles\Files\menu.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Styles\Files\menuWheat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\order.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\orderWheat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\saveWheat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Styles\Files\user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\userWheat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

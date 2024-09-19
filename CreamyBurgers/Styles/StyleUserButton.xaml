@@ -11,8 +11,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="Wheat">
-                        <Image Source="Files/user.png"/>
+                    <Border Background="SaddleBrown">
+                        <Image Source="Files/userWheat.png"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
