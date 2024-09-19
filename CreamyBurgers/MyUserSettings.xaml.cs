@@ -19,6 +19,7 @@ namespace CreamyBurgers
     /// </summary>
     public partial class MyUserSettings : Window
     {
+
         public MyUserSettings()
         {
             InitializeComponent();
@@ -67,6 +68,7 @@ namespace CreamyBurgers
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
             //rendelések xaml?
+            //azaz
 
         }
     }
