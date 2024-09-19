@@ -12,7 +12,7 @@ namespace CreamyBurgers
             CreateUsersTable();
         }
 
-        readonly private string conn = "Data Source=creamyburgers.db";
+        readonly string conn = "Data Source=creamyburgers.db";
         private void CreateUsersTable()
         {
             try

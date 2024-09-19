@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows;
-using Microsoft.Data.Sqlite;  // Use Microsoft.Data.Sqlite
+using Microsoft.Data.Sqlite;
 using EasyEncryption;
 
 namespace CreamyBurgers
@@ -13,8 +13,7 @@ namespace CreamyBurgers
             InitializeComponent();
         }
 
-        // SQLite connection string (adjust the path to your database file)
-        readonly private string conn = "Data Source=creamyburgers.db";
+        readonly string conn = "Data Source=creamyburgers.db";
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
