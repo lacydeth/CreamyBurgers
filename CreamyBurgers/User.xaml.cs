@@ -14,6 +14,41 @@ namespace CreamyBurgers
             this.WindowStartupLocation = WindowStartupLocation.Manual;
             this.Left = 0;
             this.Top = 0;
+            btnProfil.Content = Session.Username;
+            string conn = "Data Source=creamyburgers.db";
+
+            try
+            {
+                using (var sqlConn = new SqliteConnection(conn))
+                {
+                    sqlConn.Open();
+
+                    string query = "SELECT street, city, state, zipCode, country, phoneNumber FROM addresses WHERE username=@username AND password=@password";
+
+                    using (var sqlCommand = new SqliteCommand(query, sqlConn))
+                    {
+                        using (SqliteDataReader reader = sqlCommand.ExecuteReader())
+                        {
+                            if (reader.HasRows && reader.Read()) // Call reader.Read() to advance to the first row
+                            {
+                                Session.Username = reader["username"].ToString();
+                                Session.UserId = Convert.ToInt32(reader["id"]);  // Convert to int safely
+                                Session.PermId = Convert.ToInt32(reader["permID"]);  // Convert to int safely
+                            }
+                            else
+                            {
+                                MessageBox.Show("Hibás adatok!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+
+
 
             // Initially, show the cart panel and hide the profile panel
             ShowCartPanel(true);
