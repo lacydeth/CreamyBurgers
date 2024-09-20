@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Styles\Files\Cart.png" />
     <None Remove="Styles\Files\close.png" />
     <None Remove="Styles\Files\CreamyBurgersLogo.png" />
     <None Remove="Styles\Files\home.png" />
@@ -35,6 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Styles\Files\Cart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Styles\Files\close.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

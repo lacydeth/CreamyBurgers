@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace CreamyBurgers
 {
@@ -10,11 +8,16 @@ namespace CreamyBurgers
         {
             InitializeComponent();
 
+            // Set window size to full screen, excluding caption height
             this.Width = SystemParameters.PrimaryScreenWidth;
             this.Height = SystemParameters.PrimaryScreenHeight - SystemParameters.WindowCaptionHeight;
             this.WindowStartupLocation = WindowStartupLocation.Manual;
             this.Left = 0;
             this.Top = 0;
+
+            // Initially, show the cart panel and hide the profile panel
+            ShowCartPanel(true);
+            ProfilePanelContainer.Visibility = Visibility.Collapsed;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -31,21 +34,16 @@ namespace CreamyBurgers
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            User homePage = new User();
-            homePage.Show();
-            this.Close();
+            // Show the home page and the cart panel
+            ShowCartPanel(true);
+            ProfilePanelContainer.Visibility = Visibility.Collapsed;
         }
 
         private void ProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ProfilePanelContainer.Visibility == Visibility.Visible)
-            {
-                ProfilePanelContainer.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                ProfilePanelContainer.Visibility = Visibility.Visible;
-            }
+            // Hide the cart panel and show the profile panel
+            ShowCartPanel(false);
+            ProfilePanelContainer.Visibility = Visibility.Visible;
         }
 
         private void OrdersButton_Click(object sender, RoutedEventArgs e)
@@ -58,6 +56,11 @@ namespace CreamyBurgers
             User homePage = new User();
             homePage.Show();
             this.Close();
+        }
+
+        private void ShowCartPanel(bool isVisible)
+        {
+            CartPanel.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
