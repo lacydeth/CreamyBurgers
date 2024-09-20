@@ -27,7 +27,7 @@ namespace CreamyBurgers
                     using (var sqlConn = new SqliteConnection(conn))
                     {
                         sqlConn.Open();
-                        string query = "SELECT username, password FROM users WHERE username=@username AND password=@password";
+                        string query = "SELECT id, username, password, permID FROM users WHERE username=@username AND password=@password";
 
                         using (var sqlCommand = new SqliteCommand(query, sqlConn))
                         {
@@ -36,8 +36,13 @@ namespace CreamyBurgers
 
                             using (SqliteDataReader reader = sqlCommand.ExecuteReader())
                             {
-                                if (reader.HasRows)
+                                if (reader.HasRows && reader.Read()) // Call reader.Read() to advance to the first row
                                 {
+                                    Session.Username = reader["username"].ToString();
+                                    Session.UserId = Convert.ToInt32(reader["id"]);  // Convert to int safely
+                                    Session.PermId = Convert.ToInt32(reader["permID"]);  // Convert to int safely
+
+                                    MessageBox.Show($"{Session.Username} {Session.UserId} {Session.PermId}");
                                     sqlConn.Close();
                                     LoadingBeetweenWindows loadingWindow = new LoadingBeetweenWindows();
                                     loadingWindow.Show();
