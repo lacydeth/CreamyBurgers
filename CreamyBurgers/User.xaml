@@ -65,33 +65,33 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Column="0">
+                            <StackPanel Grid.Column="0" Margin="5">
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 1" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Város" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Name="tbVáros" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 2" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Megye" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Name="tbMegye" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 3" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Utca" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbUtca" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 4" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Házszám" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbHazszam" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 5" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Irányítószám" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbIranyitoszam" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Label 6" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <TextBox x:Name="tbTelefonszam" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Label 7" VerticalAlignment="Center" Margin="10"/>
