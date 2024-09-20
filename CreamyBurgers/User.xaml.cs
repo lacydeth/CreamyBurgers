@@ -15,6 +15,7 @@ namespace CreamyBurgers
             this.WindowStartupLocation = WindowStartupLocation.Manual;
             this.Left = 0;
             this.Top = 0;
+            btnProfil.Content = Session.Username;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
