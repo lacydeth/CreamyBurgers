@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="User Order" Height="800" Width="1200"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -19,31 +19,101 @@
                 <ResourceDictionary Source="Styles/StyleOrderButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleHomeButton.xaml"/>
                 <ResourceDictionary Source="Styles/StyleLogoutNavButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleSaveButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
     <Border Style="{DynamicResource Border}" Margin="0" Padding="10">
         <Border Style="{DynamicResource MainBorder}">
-            <Grid Style="{DynamicResource Grid}">
+            <Grid x:Name="MainGrid" Style="{DynamicResource Grid}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0" x:Name="NavColumn" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <DockPanel Background="SaddleBrown" Width="200" Visibility="Collapsed" Grid.Column="0" x:Name="NavBar">
-
+                <DockPanel Background="SaddleBrown" Width="200" Grid.Column="0" x:Name="NavBar">
                     <Button Style="{DynamicResource HomeButtonStyle}" Content="Kezdőlap" Click="HomeButton_Click" DockPanel.Dock="Top"/>
                     <Button Style="{DynamicResource OrderButtonStyle}" Content="Rendeléseim" Click="OrdersButton_Click" DockPanel.Dock="Top"/>
-                    <Button Style="{DynamicResource UserButtonStyle}" Content="Profil"  Click="ProfileButton_Click" DockPanel.Dock="Top"/>
+                    <Button Style="{DynamicResource UserButtonStyle}" Content="Profil" Click="ProfileButton_Click" DockPanel.Dock="Top"/>
                     <Button Style="{DynamicResource NavLogoutButtonStyle}" Content="Kijelentkezés" Click="LogoutButton_Click" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"/>
-
                 </DockPanel>
 
                 <Grid Grid.Column="1">
-                    <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                    <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top"/>
-                    <Button x:Name="MenuButton" Style="{DynamicResource MenuButtonStyle}" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Click="MenuButton_Click"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0"/>
+                    <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5" VerticalAlignment="Top" Grid.Row="0" HorizontalAlignment="Right"/>
+
+                    <DockPanel Grid.Row="1" Margin="10" x:Name="ProfilePanelContainer" Visibility="Collapsed">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 1" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 2" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 3" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 4" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 5" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 6" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 7" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 8" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 9" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Label 10" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Button Content="Mentés" Style="{DynamicResource SaveButtonStyle}" Width="500" Height="50" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" Grid.Row="6"  Click="SaveButton_Click"/>
+                        </Grid>
+                    </DockPanel>
                 </Grid>
             </Grid>
         </Border>
