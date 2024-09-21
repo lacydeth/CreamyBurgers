@@ -41,10 +41,6 @@ namespace CreamyBurgers
             {
                 MessageBox.Show(err.Message);
             }
-
-
-
-            // Initially, show the cart panel and hide the profile panel
             ShowCartPanel(true);
             ProfilePanelContainer.Visibility = Visibility.Collapsed;
         }
@@ -63,14 +59,12 @@ namespace CreamyBurgers
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            // Show the home page and the cart panel
             ShowCartPanel(true);
             ProfilePanelContainer.Visibility = Visibility.Collapsed;
         }
 
         private void ProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            // Hide the cart panel and show the profile panel
             ShowCartPanel(false);
             ProfilePanelContainer.Visibility = Visibility.Visible;
         }
