@@ -67,9 +67,8 @@ namespace CreamyBurgers
             {
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
-
-
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -87,12 +86,14 @@ namespace CreamyBurgers
         {
             ShowCartPanel(true);
             ProfilePanelContainer.Visibility = Visibility.Collapsed;
+            OffersPanel.Visibility = Visibility.Visible;
         }
 
         private void ProfileButton_Click(object sender, RoutedEventArgs e)
         {
             ShowCartPanel(false);
             ProfilePanelContainer.Visibility = Visibility.Visible;
+            OffersPanel.Visibility = Visibility.Collapsed;
         }
 
         private void OrdersButton_Click(object sender, RoutedEventArgs e)
@@ -164,9 +165,6 @@ namespace CreamyBurgers
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
-
         private void ShowCartPanel(bool isVisible)
         {
             CartPanel.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;

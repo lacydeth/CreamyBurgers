@@ -53,6 +53,7 @@
                     <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0"/>
 
                     <UniformGrid Grid.Row="1" Columns="5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" x:Name="OffersPanel">
+                        <!-- Replace Repeated Cards with Unique Offers -->
                         <Border Style="{DynamicResource CardStyle}">
                             <StackPanel>
                                 <TextBlock Text="Ajánlat 1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
@@ -83,37 +84,6 @@
                                 <TextBlock Text="Leírás 5" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Border>
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Ajánlat 5" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Leírás 5" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Ajánlat 5" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Leírás 5" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Ajánlat 5" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Leírás 5" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Ajánlat 5" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Leírás 5" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Ajánlat 5" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Leírás 5" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-
                     </UniformGrid>
 
                     <DockPanel Grid.Row="1" Margin="10" x:Name="ProfilePanelContainer" Visibility="Collapsed">
@@ -128,19 +98,39 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
+                            <!-- Left Column -->
                             <StackPanel Grid.Column="0" Margin="5">
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Vezetéknév" VerticalAlignment="Center" Margin="10"/>
                                     <TextBox x:Name="tbLastName" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Megye" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Name="tbState" Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Keresztnév" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbFirstName" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
-                            </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Utca" VerticalAlignment="Center" Margin="10"/>
                                     <TextBox x:Name="tbStreet" Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Házszám" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbHouseNumber" Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Right Column -->
+                            <StackPanel Grid.Column="1" Margin="5">
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Telefonszám" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbPhoneNumber" Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Város" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Name="tbCity" Style="{DynamicResource UserTextbox}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Label Content="Megye" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Name="tbState" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Irányítószám" VerticalAlignment="Center" Margin="10"/>
@@ -148,37 +138,16 @@
                                 </StackPanel>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1">
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Telefonszám" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbTelefonszam" Style="{DynamicResource UserTextbox}"/>
-                                </StackPanel>
-                            </StackPanel>
-                                    <Label Content="Keresztnév" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbFirstName" Style="{DynamicResource UserTextbox}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Város" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Name="tbCity" Style="{DynamicResource UserTextbox}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Házszám" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbHouseNumber" Style="{DynamicResource UserTextbox}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Telefonszám" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbPhoneNumber" Style="{DynamicResource UserTextbox}"/>
-                                </StackPanel>
-                            </StackPanel>
-
-                            <Button Content="Mentés" Style="{DynamicResource SaveButtonStyle}" Width="500" Height="50" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" Grid.Row="6" Click="SaveButton_Click"/>
+                            <!-- Save Button -->
+                            <Button Content="Mentés" Style="{DynamicResource SaveButtonStyle}" Width="500" Height="50" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" Click="SaveButton_Click"/>
                         </Grid>
                     </DockPanel>
+
                 </Grid>
 
                 <DockPanel Background="Wheat" Grid.Column="2" Margin="5" x:Name="CartPanel" LastChildFill="False">
                     <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right">
-                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5,0,0,0" VerticalAlignment="Top" Grid.Row="0" HorizontalAlignment="Left"/>
+                        <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,85,0,0" HorizontalAlignment="Center">
                         <Image Source="Styles/Files/Cart.png" Width="40" Height="40" Margin="0,0,10,0" VerticalAlignment="Center"/>
@@ -186,7 +155,7 @@
                     </StackPanel>
                     <StackPanel x:Name="CartItemsPanel" Margin="10"></StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,0,0,100">
-                        <Button x:Name="PayButton" Style="{DynamicResource PayButtonStyle}" Margin="5,0,0,0" VerticalAlignment="Top" Grid.Row="0" HorizontalAlignment="Left"/>
+                        <Button x:Name="PayButton" Style="{DynamicResource PayButtonStyle}" Margin="5,0,0,0" VerticalAlignment="Top"/>
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="20,0,0,20">
                         <TextBlock Text="Összeg:" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
