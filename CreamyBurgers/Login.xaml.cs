@@ -42,7 +42,7 @@ namespace CreamyBurgers
                                     Session.UserId = Convert.ToInt32(reader["id"]);
                                     Session.PermId = Convert.ToInt32(reader["permID"]);
 
-                                    MessageBox.Show($"{Session.Username} {Session.UserId} {Session.PermId}");
+
                                     sqlConn.Close();
                                     LoadingBeetweenWindows loadingWindow = new LoadingBeetweenWindows();
                                     loadingWindow.Show();

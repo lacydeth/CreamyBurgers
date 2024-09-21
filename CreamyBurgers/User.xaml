@@ -67,47 +67,39 @@
 
                             <StackPanel Grid.Column="0" Margin="5">
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Város" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Name="tbVáros" Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Vezetéknév" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbLastName" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Megye" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Name="tbMegye" Style="{DynamicResource UserTextbox}"/>
+                                    <TextBox Name="tbState" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Utca" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbUtca" Style="{DynamicResource UserTextbox}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Házszám" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbHazszam" Style="{DynamicResource UserTextbox}"/>
+                                    <TextBox x:Name="tbStreet" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <Label Content="Irányítószám" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbIranyitoszam" Style="{DynamicResource UserTextbox}"/>
+                                    <TextBox x:Name="tbZip" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 6" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox x:Name="tbTelefonszam" Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Keresztnév" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbFirstName" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 7" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Város" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox Name="tbCity" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 8" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Házszám" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbHouseNumber" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 9" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <Label Content="Label 10" VerticalAlignment="Center" Margin="10"/>
-                                    <TextBox Style="{DynamicResource UserTextbox}"/>
+                                    <Label Content="Telefonszám" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBox x:Name="tbPhoneNumber" Style="{DynamicResource UserTextbox}"/>
                                 </StackPanel>
                             </StackPanel>
 
