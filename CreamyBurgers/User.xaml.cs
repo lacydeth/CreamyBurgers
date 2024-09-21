@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Microsoft.Data.Sqlite;
+using System.Windows;
 
 namespace CreamyBurgers
 {
@@ -7,13 +8,6 @@ namespace CreamyBurgers
         public User()
         {
             InitializeComponent();
-
-            // Set window size to full screen, excluding caption height
-            this.Width = SystemParameters.PrimaryScreenWidth;
-            this.Height = SystemParameters.PrimaryScreenHeight - SystemParameters.WindowCaptionHeight;
-            this.WindowStartupLocation = WindowStartupLocation.Manual;
-            this.Left = 0;
-            this.Top = 0;
             btnProfil.Content = Session.Username;
             string conn = "Data Source=creamyburgers.db";
 
@@ -29,11 +23,11 @@ namespace CreamyBurgers
                     {
                         using (SqliteDataReader reader = sqlCommand.ExecuteReader())
                         {
-                            if (reader.HasRows && reader.Read()) // Call reader.Read() to advance to the first row
+                            if (reader.HasRows && reader.Read())
                             {
                                 Session.Username = reader["username"].ToString();
-                                Session.UserId = Convert.ToInt32(reader["id"]);  // Convert to int safely
-                                Session.PermId = Convert.ToInt32(reader["permID"]);  // Convert to int safely
+                                Session.UserId = Convert.ToInt32(reader["id"]);
+                                Session.PermId = Convert.ToInt32(reader["permID"]);
                             }
                             else
                             {

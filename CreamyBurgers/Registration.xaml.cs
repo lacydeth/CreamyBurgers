@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Data.Sqlite;
-using EasyEncryption;      
+using EasyEncryption;
+
 namespace CreamyBurgers
 {
     public partial class Registration : Window
