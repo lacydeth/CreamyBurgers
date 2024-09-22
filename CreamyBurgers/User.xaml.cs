@@ -107,7 +107,7 @@ namespace CreamyBurgers
         {
             Button button = sender as Button;
             string productName = button.Tag.ToString();
-            double productPrice = 0;
+               double productPrice = 0;
             switch (productName)
             {
                 case "Krémes Klasszikus":
