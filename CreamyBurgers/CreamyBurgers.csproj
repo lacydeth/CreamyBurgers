@@ -27,9 +27,11 @@
     <None Remove="Styles\Files\logoutWheat.png" />
     <None Remove="Styles\Files\menu.png" />
     <None Remove="Styles\Files\menuWheat.png" />
+    <None Remove="Styles\Files\Minus.png" />
     <None Remove="Styles\Files\order.png" />
     <None Remove="Styles\Files\orderWheat.png" />
     <None Remove="Styles\Files\Pay.png" />
+    <None Remove="Styles\Files\Plus.png" />
     <None Remove="Styles\Files\save.png" />
     <None Remove="Styles\Files\saveWheat.png" />
     <None Remove="Styles\Files\user.png" />
@@ -64,6 +66,9 @@
     <Resource Include="Styles\Files\menuWheat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Styles\Files\Minus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Styles\Files\order.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -71,6 +76,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Styles\Files\Pay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Styles\Files\Plus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Styles\Files\save.png">

@@ -1,18 +1,21 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace CreamyBurgers
 {
     public partial class User : Window
     {
+        private double totalAmount = 0;
+
         public User()
         {
             InitializeComponent();
-
             ShowCartPanel(true);
             ProfilePanelContainer.Visibility = Visibility.Collapsed;
             LoadData();
         }
+
         private void LoadData()
         {
             string conn = "Data Source=creamyburgers.db";
@@ -67,7 +70,6 @@ namespace CreamyBurgers
             {
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -100,6 +102,95 @@ namespace CreamyBurgers
         {
             this.Close();
         }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            string productName = button.Tag.ToString();
+            double productPrice = 0;
+            switch (productName)
+            {
+                case "Krémes Klasszikus":
+                    productPrice = 1299;
+                    break;
+                case "Krémes BBQ Burger":
+                    productPrice = 1499;
+                    break;
+                case "Csípős Krémes Burger":
+                    productPrice = 1399;
+                    break;
+                case "Krémes Bacon-Sajt Burger":
+                    productPrice = 1499;
+                    break;
+                case "Krémes Gombás Burger":
+                    productPrice = 1599;
+                    break;
+                case "Krémes Avokádós Burger":
+                    productPrice = 1699;
+                    break;
+            }
+            StackPanel itemPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
+            TextBlock itemText = new TextBlock
+            {
+                Text = $"{productName} - {productPrice} Ft",
+                Margin = new Thickness(5),
+                FontWeight = FontWeights.Bold,
+                FontSize = 10
+            };
+            itemPanel.Children.Add(itemText);
+            CartItemsPanel.Children.Add(itemPanel);
+            totalAmount += productPrice;
+            UpdateTotalAmount();
+        }
+
+
+        private void UpdateTotalAmount()
+        {
+            TotalPriceText.Text = $"{totalAmount} Ft";
+        }
+
+        private void MinusButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            string productName = button.Tag.ToString();
+            double productPrice = 0;
+            switch (productName)
+            {
+                case "Krémes Klasszikus":
+                    productPrice = 1299;
+                    break;
+                case "Krémes BBQ Burger":
+                    productPrice = 1499;
+                    break;
+                case "Csípős Krémes Burger":
+                    productPrice = 1399;
+                    break;
+                case "Krémes Bacon-Sajt Burger":
+                    productPrice = 1499;
+                    break;
+                case "Krémes Gombás Burger":
+                    productPrice = 1599;
+                    break;
+                case "Krémes Avokádós Burger":
+                    productPrice = 1699;
+                    break;
+            }
+            for (int i = 0; i < CartItemsPanel.Children.Count; i++)
+            {
+                StackPanel itemPanel = CartItemsPanel.Children[i] as StackPanel;
+
+                if (itemPanel != null && itemPanel.Children[0] is TextBlock itemText)
+                {
+                    if (itemText.Text.StartsWith(productName))
+                    {
+                        CartItemsPanel.Children.RemoveAt(i);
+                    }
+                }
+            }
+            totalAmount -= productPrice;
+            UpdateTotalAmount();
+        }
+
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -165,6 +256,7 @@ namespace CreamyBurgers
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void ShowCartPanel(bool isVisible)
         {
             CartPanel.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
