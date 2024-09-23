@@ -1,7 +1,7 @@
 ﻿<Window x:Class="CreamyBurgers.User"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="User Order" Height="800" Width="1900" AllowsTransparency="False" Background="Transparent"
+        Title="User Order" Height="1010" Width="1900" AllowsTransparency="False" Background="Transparent"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -52,128 +52,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <DockPanel x:Name="OrdersDockPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <UniformGrid x:Name="OrdersUniformGrid" Rows="3" Columns="1">
-                            <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0"/>
-
-                            <StackPanel x:Name="OrdersContainer" Margin="10">
-                                <!-- Order items will be dynamically added here -->
-                            </StackPanel>
-                        </UniformGrid>
-                    </DockPanel>
-
-
-
                     <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0"/>
-                    <Grid>
-                        <ScrollViewer>
-                            <UniformGrid Name="ProductsContainer" Columns="3" />
-                        </ScrollViewer>
+                    <Grid Margin="0,100,0,0">
+                        <UniformGrid Name="ProductsContainer" Columns="4" />
                     </Grid>
-                    <!--<UniformGrid Grid.Row="1" Columns="5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" x:Name="OffersPanel">
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <Border BorderBrush="Black" BorderThickness="1" Height="200" Width="200" HorizontalAlignment="Center" Margin="20">
-                                    <TextBlock Text="Kép helye" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </Border>
-                                <TextBlock x:Name="TblockFirst" Text="Krémes Klasszikus" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="TblockFirstAmount" Text="1299 Ft" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Hozzávalók: Briós buci, marhahús pogácsa, cheddar sajt, saláta, paradicsom, savanyú uborka, krémes szósz." TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                                    <Button Style="{DynamicResource MinusStyle}" Click="MinusButton_Click" Tag="Krémes Klasszikus"></Button>
-                                    <TextBlock Text="Kosárhoz" VerticalAlignment="Center" Margin="10,0"/>
-                                    <Button Style="{DynamicResource PlusStyle}" Click="AddButton_Click" Tag="Krémes Klasszikus"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <Border BorderBrush="Black" BorderThickness="1" Height="200" Width="200" HorizontalAlignment="Center" Margin="20">
-                                    <TextBlock Text="Kép helye" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </Border>
-                                <TextBlock Text="Krémes BBQ Burger" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="1499 Ft" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Hozzávalók: Szezámos buci, füstölt marhahús, ropogós bacon, gouda sajt, grillezett hagyma, BBQ szósz." TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                                    <Button Style="{DynamicResource MinusStyle}" Click="MinusButton_Click" Tag="Krémes BBQ Burger"></Button>
-                                    <TextBlock Text="Kosárhoz" VerticalAlignment="Center" Margin="10,0"/>
-                                    <Button Style="{DynamicResource PlusStyle}" Click="AddButton_Click" Tag="Krémes BBQ Burger"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <Border BorderBrush="Black" BorderThickness="1" Height="200" Width="200" HorizontalAlignment="Center" Margin="20">
-                                    <TextBlock Text="Kép helye" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </Border>
-                                <TextBlock Text="Csípős Krémes Burger" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="1399 Ft" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Hozzávalók: Briós buci, marhahús pogácsa, paprikás sajt, jalapeño paprika, csípős majonéz, saláta, lilahagyma." TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                                    <Button Style="{DynamicResource MinusStyle}" Click="MinusButton_Click" Tag="Csípős Krémes Burger"></Button>
-                                    <TextBlock Text="Kosárhoz" VerticalAlignment="Center" Margin="10,0"/>
-                                    <Button Style="{DynamicResource PlusStyle}" Click="AddButton_Click" Tag="Csípős Krémes Burger"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <Border BorderBrush="Black" BorderThickness="1" Height="200" Width="200" HorizontalAlignment="Center" Margin="20">
-                                    <TextBlock Text="Kép helye" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </Border>
-                                <TextBlock Text="Krémes Bacon-Sajt Burger" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="1499 Ft" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Hozzávalók: Briós buci, marhahús pogácsa, dupla cheddar sajt, ropogós bacon, saláta, paradicsom, krémes szósz." TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                                    <Button Style="{DynamicResource MinusStyle}" Click="MinusButton_Click" Tag="Krémes Bacon-Sajt Burger"></Button>
-                                    <TextBlock Text="Kosárhoz" VerticalAlignment="Center" Margin="10,0"/>
-                                    <Button Style="{DynamicResource PlusStyle}" Click="AddButton_Click" Tag="Krémes Bacon-Sajt Burger"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <Border BorderBrush="Black" BorderThickness="1" Height="200" Width="200" HorizontalAlignment="Center" Margin="20">
-                                    <TextBlock Text="Kép helye" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </Border>
-                                <TextBlock Text="Krémes Gombás Burger" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="1599 Ft" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Hozzávalók: Rozsos buci, marhahús pogácsa, pirított gomba, krémsajt, ropogós hagyma, saláta, fokhagymás szósz." TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                                    <Button Style="{DynamicResource MinusStyle}" Click="MinusButton_Click" Tag="Krémes Gombás Burger"></Button>
-                                    <TextBlock Text="Kosárhoz" VerticalAlignment="Center" Margin="10,0"/>
-                                    <Button Style="{DynamicResource PlusStyle}" Click="AddButton_Click" Tag="Krémes Gombás Burger"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <Border Style="{DynamicResource CardStyle}">
-                            <StackPanel>
-                                <Border BorderBrush="Black" BorderThickness="1" Height="200" Width="200" HorizontalAlignment="Center" Margin="20">
-                                    <TextBlock Text="Kép helye" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                </Border>
-                                <TextBlock Text="Krémes Avokádós Burger" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="1699 Ft" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Hozzávalók: Teljes kiőrlésű buci, marhahús pogácsa, avokádókrém, feta sajt, paradicsom, rukkola, házi majonéz." TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                                    <Button Style="{DynamicResource MinusStyle}" Click="MinusButton_Click" Tag="Krémes Avokádós Burger"></Button>
-                                    <TextBlock Text="Kosárhoz" VerticalAlignment="Center" Margin="10,0"/>
-                                    <Button Style="{DynamicResource PlusStyle}" Click="AddButton_Click" Tag="Krémes Avokádós Burger"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                    </UniformGrid>-->
-                    
-
-
-
-
-
+                    <UniformGrid Grid.Row="1" Columns="5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" x:Name="OffersPanel">
+                    </UniformGrid>
 
                     <DockPanel Grid.Row="1" Margin="10" x:Name="ProfilePanelContainer" Visibility="Collapsed">
                         <Grid>
@@ -225,10 +109,22 @@
                                 </StackPanel>
                             </StackPanel>
                             <Button Content="Mentés" Style="{DynamicResource SaveButtonStyle}" Width="500" Height="50" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" Click="SaveButton_Click"/>
-
                         </Grid>
                     </DockPanel>
 
+                    <DockPanel Grid.Row="1" Margin="10" x:Name="PaidOffers" Visibility="Collapsed">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </DockPanel>
                 </Grid>
 
                 <DockPanel Background="Wheat" Grid.Column="2" Margin="5" x:Name="CartPanel" LastChildFill="False">
@@ -249,6 +145,7 @@
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Top" Height="650" x:Name="CartItemsPanel" Margin="10"></StackPanel>
                 </DockPanel>
+
             </Grid>
         </Border>
     </Border>
