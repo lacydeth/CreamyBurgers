@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.Sqlite;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CreamyBurgers
 {
@@ -100,8 +102,71 @@ namespace CreamyBurgers
 
         private void OrdersButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            ShowCartPanel(false); 
+            ProfilePanelContainer.Visibility = Visibility.Collapsed; 
+            OffersPanel.Visibility = Visibility.Collapsed;
         }
+
+        private void PayButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear previous orders from the main container
+            OrdersContainer.Children.Clear();
+
+            // Loop through each item in the cart and add it to the main container
+            foreach (StackPanel itemPanel in CartItemsPanel.Children)
+            {
+                if (itemPanel.Children[0] is TextBlock itemText)
+                {
+                    // Create the order summary as a Label
+                    Label orderItemLabel = new Label
+                    {
+                        Content = itemText.Text,
+                        Margin = new Thickness(5),
+                        FontWeight = FontWeights.Bold,
+                        FontSize = 12,
+                        BorderBrush = Brushes.SaddleBrown,
+                        BorderThickness = new Thickness(2),
+                        Padding = new Thickness(10)
+                    };
+
+                    // Add the order item label to the main container
+                    OrdersContainer.Children.Add(orderItemLabel);
+                }
+            }
+
+            // Add the total price to the main container
+            Label totalPriceLabel = new Label
+            {
+                Content = $"Összesen: {totalAmount} Ft",
+                Margin = new Thickness(5),
+                FontWeight = FontWeights.Bold,
+                FontSize = 14,
+                Foreground = Brushes.Red,
+                BorderBrush = Brushes.SaddleBrown,
+                BorderThickness = new Thickness(2),
+                Padding = new Thickness(10)
+            };
+
+            // Add the total price to the main container
+            OrdersContainer.Children.Add(totalPriceLabel);
+
+            // Clear the cart and reset total amount
+            CartItemsPanel.Children.Clear();
+            totalAmount = 0;
+            UpdateTotalAmount();
+
+            // Hide the OrdersDockPanel until orders are viewed
+            OrdersDockPanel.Visibility = Visibility.Collapsed;
+        }
+
+
+
+
+
+
+
+
+
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -148,12 +213,12 @@ namespace CreamyBurgers
         {
             TotalPriceText.Text = $"{totalAmount} Ft";
         }
-
         private void MinusButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             string productName = button.Tag.ToString();
             double productPrice = 0;
+
             switch (productName)
             {
                 case "Krémes Klasszikus":
@@ -175,6 +240,7 @@ namespace CreamyBurgers
                     productPrice = 1699;
                     break;
             }
+
             for (int i = 0; i < CartItemsPanel.Children.Count; i++)
             {
                 StackPanel itemPanel = CartItemsPanel.Children[i] as StackPanel;
@@ -184,12 +250,22 @@ namespace CreamyBurgers
                     if (itemText.Text.StartsWith(productName))
                     {
                         CartItemsPanel.Children.RemoveAt(i);
+                        break;
                     }
                 }
             }
-            totalAmount -= productPrice;
-            UpdateTotalAmount();
+
+            if (totalAmount == 0)
+            {
+                return;
+            }
+            else
+            {
+                totalAmount -= productPrice;
+                UpdateTotalAmount();
+            }
         }
+
 
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -256,7 +332,7 @@ namespace CreamyBurgers
                 MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+       
         private void ShowCartPanel(bool isVisible)
         {
             CartPanel.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
