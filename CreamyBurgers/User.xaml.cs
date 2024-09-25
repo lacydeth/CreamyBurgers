@@ -212,13 +212,105 @@ namespace CreamyBurgers
         }
         private void PayButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTotalAmountToPaidOffers();
-            CartItems.Clear();
-            UpdateCartDisplay();
-            totalAmount = 0;
-            TotalPriceText.Text = "0 Ft";
-            MessageBox.Show("Sikeres Fizetés, Rendelésem fülön láthatja a leadott rendelését");
+            if (CartItems.Count == 0)
+            {
+                MessageBox.Show("A kosarad üres!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string conn = "Data Source=creamyburgers.db";
+            try
+            {
+                using (var sqlConn = new SqliteConnection(conn))
+                {
+                    sqlConn.Open();
+
+                    string insertOrderQuery = @"
+                                                INSERT INTO orders (userId, orderDate, totalAmount) 
+                                                VALUES (@userId, @orderDate, @totalAmount);
+                                                SELECT last_insert_rowid()";
+
+                    long orderId;
+                    using (var orderCmd = new SqliteCommand(insertOrderQuery, sqlConn))
+                    {
+                        orderCmd.Parameters.AddWithValue("@userId", Session.UserId);
+                        orderCmd.Parameters.AddWithValue("@orderDate", DateTime.Now);
+                        orderCmd.Parameters.AddWithValue("@totalAmount", totalAmount);
+
+                        orderId = (long)orderCmd.ExecuteScalar();
+                        if (orderId <= 0)
+                        {
+                            MessageBox.Show("Nem sikerült létrehozni a rendelést!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+
+                    foreach (var cartItem in CartItems)
+                    {
+                        int productId = GetProductId(cartItem.Name); 
+                        if (productId == 0)
+                        {
+                            MessageBox.Show($"Nem található a termék: {cartItem.Name}.", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                            continue; 
+                        }
+
+                        int unitPrice = cartItem.Price;
+                        int quantity = 1;
+
+                        string insertOrderItemQuery = @"
+                                                        INSERT INTO orderItems (orderId, productId, quantity, unitPrice, subtotal) 
+                                                        VALUES (@orderId, @productId, @quantity, @unitPrice, @subtotal)";
+
+                        using (var orderItemCmd = new SqliteCommand(insertOrderItemQuery, sqlConn))
+                        {
+                            orderItemCmd.Parameters.AddWithValue("@orderId", orderId);
+                            orderItemCmd.Parameters.AddWithValue("@productId", productId);
+                            orderItemCmd.Parameters.AddWithValue("@quantity", quantity);
+                            orderItemCmd.Parameters.AddWithValue("@unitPrice", unitPrice);
+                            orderItemCmd.Parameters.AddWithValue("@subtotal", unitPrice * quantity);
+
+                            orderItemCmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    CartItems.Clear();
+                    UpdateCartDisplay();
+                    totalAmount = 0;
+                    TotalPriceText.Text = "0 Ft";
+                    LoadUserOrders();
+                    OrdersPanel(false);
+                    MessageBox.Show("Sikeresen leadott rendelés", "Rendelés", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
+        private int GetProductId(string productName)
+        {
+            string connectionString = "Data Source=creamyburgers.db";
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT productId FROM products WHERE name = @name";
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@name", productName);
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        throw new Exception($"Product ID not found for {productName}");
+                    }
+                }
+            }
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -395,10 +487,86 @@ namespace CreamyBurgers
             newPanel.Children.Add(totalAmountText);
             PaidOffers.Children.Add(newBorder);
         }
+        private void LoadUserOrders()
+        {
+            PaidOffersPanel.Children.Clear();
 
+            string conn = "Data Source=creamyburgers.db";
+            try
+            {
+                using (var sqlConn = new SqliteConnection(conn))
+                {
+                    sqlConn.Open();
+                    string fetchOrdersQuery = @"
+                                                SELECT orderId, orderDate, totalAmount 
+                                                FROM orders 
+                                                WHERE userId = @userId
+                                                ORDER BY orderDate DESC";
 
+                    using (var cmd = new SqliteCommand(fetchOrdersQuery, sqlConn))
+                    {
+                        cmd.Parameters.AddWithValue("@userId", Session.UserId);
 
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                PaidOffers.Visibility = Visibility.Collapsed;
+                                return;
+                            }
 
+                            PaidOffers.Visibility = Visibility.Visible;
+
+                            while (reader.Read())
+                            {
+                                long orderId = reader.GetInt64(0);
+                                DateTime orderDate = reader.GetDateTime(1);
+                                int totalAmount = reader.GetInt32(2);
+
+                                Border orderCard = new Border
+                                {
+                                    Background = new SolidColorBrush(Colors.LightGray),
+                                    CornerRadius = new CornerRadius(10),
+                                    Margin = new Thickness(5),
+                                    Padding = new Thickness(10),
+                                    BorderThickness = new Thickness(1),
+                                    BorderBrush = new SolidColorBrush(Colors.DarkGray)
+                                };
+
+                                Grid orderGrid = new Grid();
+                                orderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                                orderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                                orderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                                TextBlock orderInfo = new TextBlock
+                                {
+                                    Text = $"Rendelés azonosító: {orderId} | Dátum: {orderDate.ToString("g")}",
+                                    FontSize = 14,
+                                    FontWeight = FontWeights.Bold
+                                };
+                                Grid.SetRow(orderInfo, 0);
+                                orderGrid.Children.Add(orderInfo);
+
+                                TextBlock totalAmountText = new TextBlock
+                                {
+                                    Text = $"Összesen: {totalAmount} Ft",
+                                    FontSize = 12,
+                                    FontWeight = FontWeights.Normal
+                                };
+                                Grid.SetRow(totalAmountText, 1);
+                                orderGrid.Children.Add(totalAmountText);
+                                orderCard.Child = orderGrid;
+                                PaidOffersPanel.Children.Add(orderCard);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void MainPanel(bool isVisible)
         {
             CartPanel.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;

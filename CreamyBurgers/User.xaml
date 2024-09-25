@@ -115,18 +115,11 @@
                     </DockPanel>
 
                     <DockPanel Grid.Row="1" Margin="10" x:Name="PaidOffers" Visibility="Collapsed">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                        </Grid>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="PaidOffersPanel" Orientation="Vertical" />
+                        </ScrollViewer>
                     </DockPanel>
+
                 </Grid>
 
                 <DockPanel Background="Wheat" Grid.Column="2" Margin="5" x:Name="CartPanel" LastChildFill="False">
