@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace CreamyBurgers
 {
-    /// <summary>
-    /// Interaction logic for Admin.xaml
-    /// </summary>
     public partial class Admin : Window
     {
         public Admin()

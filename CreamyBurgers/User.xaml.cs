@@ -11,7 +11,8 @@ namespace CreamyBurgers
     public partial class User : Window
     {
         private double totalAmount = 0;
-        private List<(string Name, int Price)> CartItems = new List<(string Name, int Price)>();
+        public List<(string Name, int Price)> CartItems = new List<(string Name, int Price)>();
+
 
         public User()
         {
@@ -216,7 +217,7 @@ namespace CreamyBurgers
         {
             if (CartItems.Count == 0)
             {
-                MessageBox.Show("A kosarad üres!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Your cart is empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -227,68 +228,141 @@ namespace CreamyBurgers
                 {
                     sqlConn.Open();
 
-                    string insertOrderQuery = @"
-                                                INSERT INTO orders (userId, orderDate, totalAmount) 
-                                                VALUES (@userId, @orderDate, @totalAmount);
-                                                SELECT last_insert_rowid()";
-
-                    long orderId;
-                    using (var orderCmd = new SqliteCommand(insertOrderQuery, sqlConn))
+                    // Start a transaction to ensure atomicity
+                    using (var transaction = sqlConn.BeginTransaction())
                     {
-                        orderCmd.Parameters.AddWithValue("@userId", Session.UserId);
-                        orderCmd.Parameters.AddWithValue("@orderDate", DateTime.Now);
-                        orderCmd.Parameters.AddWithValue("@totalAmount", totalAmount);
+                        string insertOrderQuery = @"
+                    INSERT INTO orders (userId, orderDate, totalAmount) 
+                    VALUES (@userId, @orderDate, @totalAmount);
+                    SELECT last_insert_rowid()";
 
-                        orderId = (long)orderCmd.ExecuteScalar();
-                        if (orderId <= 0)
+                        long orderId;
+                        using (var orderCmd = new SqliteCommand(insertOrderQuery, sqlConn, transaction))
                         {
-                            MessageBox.Show("Nem sikerült létrehozni a rendelést!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
+                            orderCmd.Parameters.AddWithValue("@userId", Session.UserId);
+                            orderCmd.Parameters.AddWithValue("@orderDate", DateTime.Now);
+                            orderCmd.Parameters.AddWithValue("@totalAmount", totalAmount);
+
+                            orderId = (long)orderCmd.ExecuteScalar();
+                            if (orderId <= 0)
+                            {
+                                MessageBox.Show("Failed to create order!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
                         }
+
+                        // Deduct stock and insert order items
+                        foreach (var cartItem in CartItems)
+                        {
+                            int productId = GetProductId(cartItem.Name);
+                            if (productId == 0)
+                            {
+                                MessageBox.Show($"Product not found: {cartItem.Name}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                continue;
+                            }
+
+                            // Get the required ingredients for the product
+                            var requiredIngredients = GetProductIngredients(productId, sqlConn, transaction);
+
+                            // Check stock and deduct
+                            if (!DeductInventoryStock(requiredIngredients, sqlConn, transaction))
+                            {
+                                MessageBox.Show($"Not enough stock to fulfill the order for {cartItem.Name}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                transaction.Rollback(); // Cancel the entire order if stock is insufficient
+                                return;
+                            }
+
+                            int unitPrice = cartItem.Price;
+                            int quantity = 1;
+
+                            string insertOrderItemQuery = @"
+                        INSERT INTO orderItems (orderId, productId, quantity, unitPrice, subtotal) 
+                        VALUES (@orderId, @productId, @quantity, @unitPrice, @subtotal)";
+
+                            using (var orderItemCmd = new SqliteCommand(insertOrderItemQuery, sqlConn, transaction))
+                            {
+                                orderItemCmd.Parameters.AddWithValue("@orderId", orderId);
+                                orderItemCmd.Parameters.AddWithValue("@productId", productId);
+                                orderItemCmd.Parameters.AddWithValue("@quantity", quantity);
+                                orderItemCmd.Parameters.AddWithValue("@unitPrice", unitPrice);
+                                orderItemCmd.Parameters.AddWithValue("@subtotal", unitPrice * quantity);
+
+                                orderItemCmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit(); // Commit transaction if all goes well
+
+                        CartItems.Clear();
+                        UpdateCartDisplay();
+                        totalAmount = 0;
+                        TotalPriceText.Text = "0 Ft";
+                        LoadUserOrders();
+                        OrdersPanel(false);
+                        MessageBox.Show("Order placed successfully", "Order", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-
-                    foreach (var cartItem in CartItems)
-                    {
-                        int productId = GetProductId(cartItem.Name); 
-                        if (productId == 0)
-                        {
-                            MessageBox.Show($"Nem található a termék: {cartItem.Name}.", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-                            continue; 
-                        }
-
-                        int unitPrice = cartItem.Price;
-                        int quantity = 1;
-
-                        string insertOrderItemQuery = @"
-                                                        INSERT INTO orderItems (orderId, productId, quantity, unitPrice, subtotal) 
-                                                        VALUES (@orderId, @productId, @quantity, @unitPrice, @subtotal)";
-
-                        using (var orderItemCmd = new SqliteCommand(insertOrderItemQuery, sqlConn))
-                        {
-                            orderItemCmd.Parameters.AddWithValue("@orderId", orderId);
-                            orderItemCmd.Parameters.AddWithValue("@productId", productId);
-                            orderItemCmd.Parameters.AddWithValue("@quantity", quantity);
-                            orderItemCmd.Parameters.AddWithValue("@unitPrice", unitPrice);
-                            orderItemCmd.Parameters.AddWithValue("@subtotal", unitPrice * quantity);
-
-                            orderItemCmd.ExecuteNonQuery();
-                        }
-                    }
-
-                    CartItems.Clear();
-                    UpdateCartDisplay();
-                    totalAmount = 0;
-                    TotalPriceText.Text = "0 Ft";
-                    LoadUserOrders();
-                    OrdersPanel(false);
-                    MessageBox.Show("Sikeresen leadott rendelés", "Rendelés", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private List<(int inventoryId, int quantityNeeded)> GetProductIngredients(int productId, SqliteConnection sqlConn, SqliteTransaction transaction)
+        {
+            List<(int inventoryId, int quantityNeeded)> ingredients = new List<(int inventoryId, int quantityNeeded)>();
+
+            string query = "SELECT inventoryId, quantityNeeded FROM productInventory WHERE productId = @productId";
+            using (var command = new SqliteCommand(query, sqlConn, transaction))
+            {
+                command.Parameters.AddWithValue("@productId", productId);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int inventoryId = reader.GetInt32(0);
+                        int quantityNeeded = reader.GetInt32(1);
+                        ingredients.Add((inventoryId, quantityNeeded));
+                    }
+                }
+            }
+
+            return ingredients;
+        }
+        private bool DeductInventoryStock(List<(int inventoryId, int quantityNeeded)> ingredients, SqliteConnection sqlConn, SqliteTransaction transaction)
+        {
+            foreach (var ingredient in ingredients)
+            {
+                int inventoryId = ingredient.inventoryId;
+                int quantityNeeded = ingredient.quantityNeeded;
+
+                // Check the current stock
+                string checkStockQuery = "SELECT quantity FROM inventory WHERE id = @inventoryId";
+                using (var checkCmd = new SqliteCommand(checkStockQuery, sqlConn, transaction))
+                {
+                    checkCmd.Parameters.AddWithValue("@inventoryId", inventoryId);
+                    int currentStock = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                    if (currentStock < quantityNeeded)
+                    {
+                        return false; // Insufficient stock
+                    }
+
+                    // Deduct stock
+                    string updateStockQuery = "UPDATE inventory SET quantity = quantity - @quantityNeeded WHERE id = @inventoryId";
+                    using (var updateCmd = new SqliteCommand(updateStockQuery, sqlConn, transaction))
+                    {
+                        updateCmd.Parameters.AddWithValue("@quantityNeeded", quantityNeeded);
+                        updateCmd.Parameters.AddWithValue("@inventoryId", inventoryId);
+                        updateCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            return true; // Stock deducted successfully
+        }
+
 
         private int GetProductId(string productName)
         {
