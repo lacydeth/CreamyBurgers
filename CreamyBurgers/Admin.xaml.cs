@@ -35,9 +35,21 @@ namespace CreamyBurgers
         {
             Application.Current.Shutdown();
         }
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+                CreateOrderPanel.Visibility = Visibility.Visible;
+            OrderStackPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("mentve");
+        }
 
         private void OrdersButton_Click(object sender, RoutedEventArgs e)
         {
+            OrderStackPanel.Visibility = Visibility.Visible;
+            CreateOrderPanel.Visibility = Visibility.Collapsed;
             string conn = "Data Source=creamyburgers.db";
             OrderStackPanel.Children.Clear();
             try

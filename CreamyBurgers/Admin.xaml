@@ -38,13 +38,14 @@
             <Button Style="{DynamicResource UserButtonStyle}" Content="Felhasználók" />
             <Button Style="{DynamicResource HomeButtonStyle}" Content="Alapanyagok" />
             <Button Style="{DynamicResource OrderButtonStyle}" Content="Eddigi Rendelés" Click="OrdersButton_Click"/>
+            <Button Style="{DynamicResource OrderButtonStyle}" Content="Új Rendelés" Click="CreateButton_Click"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom">
             <Button Style="{DynamicResource NavLogoutButtonStyle}" Content="Kijelentkezés" Click="Logout_buttonClick"  VerticalAlignment="Bottom" />
         </StackPanel>
         <Grid Grid.Column="1" Background="Wheat" Margin="0,100,0,0" x:Name="OrderListContainer">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel x:Name="OrderStackPanel" Margin="10" />
+                <StackPanel x:Name="OrderStackPanel" Margin="10" Visibility="Collapsed"/>
             </ScrollViewer>
         </Grid>
 
@@ -62,5 +63,15 @@
                 <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             </StackPanel>
         </Grid>
+
+        <DockPanel x:Name="CreateOrderPanel" Background="Transparent" Visibility="Collapsed" Grid.Column="1" VerticalAlignment="Top" Margin="0,100,0,0">
+            <StackPanel Margin="10">
+                <TextBox Text="Order Name" Style="{DynamicResource AdminTextbox}"/>
+                <TextBox Text="Order Description" Style="{DynamicResource AdminTextbox}"/>
+                <TextBox Text="Quantity" Style="{DynamicResource AdminTextbox}"/>
+                <TextBox Text="Price" Style="{DynamicResource AdminTextbox}"/>
+                <Button Content="Mentés" Width="200" Margin="5" Click="SaveButton_Click" Style="{DynamicResource SaveButtonStyle}"/>
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>
