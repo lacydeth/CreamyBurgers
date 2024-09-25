@@ -17,6 +17,7 @@ namespace CreamyBurgers
 {
     public partial class Admin : Window
     {
+        private InventoryItem selectedInventoryItem;
         public Admin()
         {
             InitializeComponent();
@@ -124,6 +125,117 @@ namespace CreamyBurgers
         {
             CreateOrderPanel.Visibility = Visibility.Visible;
             OrderStackPanel.Visibility = Visibility.Collapsed;
+        }
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = NameTextBox.Text;
+            if (int.TryParse(QuantityTextBox.Text, out int quantity))
+            {
+                string connString = "Data Source=creamyburgers.db";
+                try
+                {
+                    using (var conn = new SqliteConnection(connString))
+                    {
+                        conn.Open();
+                        string query = @"INSERT INTO inventory (name, quantity) VALUES (@name, @quantity)";
+                        using (var cmd = new SqliteCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@name", name);
+                            cmd.Parameters.AddWithValue("@quantity", quantity);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    LoadInventory(); // Refresh inventory after adding
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid quantity. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void InventoryDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (InventoryDataGrid.SelectedItem is InventoryItem item)
+            {
+                selectedInventoryItem = item;
+                NameTextBox.Text = item.Name;
+                QuantityTextBox.Text = item.Quantity.ToString();
+                UpdateButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
+            }
+            else
+            {
+                selectedInventoryItem = null;
+                NameTextBox.Clear();
+                QuantityTextBox.Clear();
+                UpdateButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
+            }
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedInventoryItem != null && int.TryParse(QuantityTextBox.Text, out int quantity))
+            {
+                string connString = "Data Source=creamyburgers.db";
+                try
+                {
+                    using (var conn = new SqliteConnection(connString))
+                    {
+                        conn.Open();
+                        string query = @"UPDATE inventory SET name = @name, quantity = @quantity WHERE id = @id";
+                        using (var cmd = new SqliteCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@name", NameTextBox.Text);
+                            cmd.Parameters.AddWithValue("@quantity", quantity);
+                            cmd.Parameters.AddWithValue("@id", selectedInventoryItem.InventoryId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    LoadInventory(); // Refresh inventory after updating
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid input. Please ensure all fields are filled correctly.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedInventoryItem != null)
+            {
+                string connString = "Data Source=creamyburgers.db";
+                try
+                {
+                    using (var conn = new SqliteConnection(connString))
+                    {
+                        conn.Open();
+                        string query = @"DELETE FROM inventory WHERE id = @id";
+                        using (var cmd = new SqliteCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@id", selectedInventoryItem.InventoryId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    LoadInventory(); // Refresh inventory after deletion
+                    NameTextBox.Clear();
+                    QuantityTextBox.Clear();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
     public class Order
