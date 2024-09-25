@@ -45,7 +45,16 @@ namespace CreamyBurgers
 
                                     sqlConn.Close();
                                     LoadingBeetweenWindows loadingWindow = new LoadingBeetweenWindows();
-                                    loadingWindow.Show();
+                                    Admin adminWindow = new Admin();
+                                    if (Session.PermId == 1)
+                                    {
+                                        loadingWindow.Show();
+                                    }
+                                    else
+                                    {
+                                        adminWindow.Show();
+                                    }
+
                                     this.Close();
                                 }
                                 else

@@ -8,8 +8,8 @@
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="Margin" Value="10"/>
-        <Setter Property="Width" Value="270"/>
-        <Setter Property="Height" Value="400"/>
+        <Setter Property="Width" Value="230"/>
+        <Setter Property="Height" Value="380"/>
     </Style>
 
 </ResourceDictionary>

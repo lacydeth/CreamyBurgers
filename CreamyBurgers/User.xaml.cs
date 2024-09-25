@@ -105,7 +105,7 @@ namespace CreamyBurgers
             Border border = new Border
             {
                 Style = (Style)FindResource("CardStyle"),
-                Margin = new Thickness(20),
+                Margin = new Thickness(10),
                 BorderBrush = System.Windows.Media.Brushes.Black,
                 BorderThickness = new Thickness(1)
             };
@@ -113,21 +113,13 @@ namespace CreamyBurgers
 
             Border imagePlaceholder = new Border
             {
-                Height = 200,
-                Width = 200,
+                Height = 150,
+                Width = 150,
                 BorderBrush = System.Windows.Media.Brushes.Black,
                 BorderThickness = new Thickness(1),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(20)
             };
-            TextBlock imageText = new TextBlock
-            {
-                Text = "Kép helye",
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                FontWeight = FontWeights.Bold
-            };
-            imagePlaceholder.Child = imageText;
             stackPanel.Children.Add(imagePlaceholder);
 
             TextBlock productNameText = new TextBlock
