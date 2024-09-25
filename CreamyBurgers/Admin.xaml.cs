@@ -23,5 +23,16 @@ namespace CreamyBurgers
         {
             InitializeComponent();
         }
+        private void Logout_buttonClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

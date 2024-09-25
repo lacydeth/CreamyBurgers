@@ -140,7 +140,6 @@
                     </StackPanel>
                     <StackPanel DockPanel.Dock="Top" Height="650" x:Name="CartItemsPanel" Margin="10"></StackPanel>
                 </DockPanel>
-
             </Grid>
         </Border>
     </Border>
