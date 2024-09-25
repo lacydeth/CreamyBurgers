@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using Microsoft.Data.Sqlite;
 namespace CreamyBurgers
 {
     public partial class Admin : Window
@@ -20,6 +20,8 @@ namespace CreamyBurgers
         public Admin()
         {
             InitializeComponent();
+            LoadInventory();
+            LoadOrders();
         }
         private void Logout_buttonClick(object sender, RoutedEventArgs e)
         {
@@ -35,7 +37,7 @@ namespace CreamyBurgers
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
                 CreateOrderPanel.Visibility = Visibility.Visible;
-            OrderStackPanel.Visibility = Visibility.Collapsed;
+                OrderStackPanel.Visibility = Visibility.Collapsed;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -43,84 +45,98 @@ namespace CreamyBurgers
             MessageBox.Show("mentve");
         }
 
-        private void OrdersButton_Click(object sender, RoutedEventArgs e)
+        private void LoadOrders()
         {
-            OrderStackPanel.Visibility = Visibility.Visible;
-            CreateOrderPanel.Visibility = Visibility.Collapsed;
-            string conn = "Data Source=creamyburgers.db";
-            OrderStackPanel.Children.Clear();
+            string connString = "Data Source=creamyburgers.db";
+            List<Order> orders = new List<Order>();
+
             try
             {
-                using (var sqlConn = new SqliteConnection(conn))
+                using (var conn = new SqliteConnection(connString))
                 {
-                    sqlConn.Open();
-                    string fetchOrdersQuery = @"
-                                    SELECT orderId, orderDate, totalAmount, userId 
-                                    FROM orders 
-                                    ORDER BY orderDate DESC";
+                    conn.Open();
+                    string query = @"SELECT orderId, userId, orderDate, totalAmount FROM orders";
 
-                    using (var cmd = new SqliteCommand(fetchOrdersQuery, sqlConn))
+                    using (var cmd = new SqliteCommand(query, conn))
                     {
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                long orderId = reader.GetInt64(0);
-                                DateTime orderDate = reader.GetDateTime(1);
-                                int totalAmount = reader.GetInt32(2);
-                                string userId = reader.GetString(3);
-                                Border orderCard = new Border
+                                orders.Add(new Order
                                 {
-                                    Background = new SolidColorBrush(Colors.LightGray),
-                                    CornerRadius = new CornerRadius(10),
-                                    Margin = new Thickness(5),
-                                    Padding = new Thickness(10),
-                                    BorderThickness = new Thickness(1),
-                                    BorderBrush = new SolidColorBrush(Colors.DarkGray)
-                                };
-
-                                Grid orderGrid = new Grid();
-                                orderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                                orderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                                orderGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                                TextBlock userInfo = new TextBlock
-                                {
-                                    Text = $"Felhasználó ID: {userId}",
-                                    FontSize = 12,
-                                    FontWeight = FontWeights.Normal
-                                };
-                                Grid.SetRow(userInfo, 0);
-                                orderGrid.Children.Add(userInfo);
-                                TextBlock orderInfo = new TextBlock
-                                {
-                                    Text = $"Rendelés azonosító: {orderId} | Dátum: {orderDate:g}",
-                                    FontSize = 14,
-                                    FontWeight = FontWeights.Bold
-                                };
-                                Grid.SetRow(orderInfo, 1);
-                                orderGrid.Children.Add(orderInfo);
-                                TextBlock totalAmountText = new TextBlock
-                                {
-                                    Text = $"Összesen: {totalAmount} Ft",
-                                    FontSize = 12,
-                                    FontWeight = FontWeights.Normal
-                                };
-                                Grid.SetRow(totalAmountText, 2);
-                                orderGrid.Children.Add(totalAmountText);
-
-                                orderCard.Child = orderGrid;
-                                OrderStackPanel.Children.Add(orderCard);
+                                    OrderId = reader.GetInt32(0),
+                                    UserId = reader.GetInt32(1),
+                                    OrderDate = reader.GetDateTime(2),
+                                    TotalAmount = reader.GetInt32(3)
+                                });
                             }
                         }
                     }
                 }
+
+                OrdersDataGrid.ItemsSource = orders;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error loading orders: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        private void LoadInventory()
+        {
+            string connString = "Data Source=creamyburgers.db";
+            List<InventoryItem> inventoryItems = new List<InventoryItem>();
 
+            try
+            {
+                using (var conn = new SqliteConnection(connString))
+                {
+                    conn.Open();
+                    string query = @"SELECT id, name, quantity FROM inventory";
+
+                    using (var cmd = new SqliteCommand(query, conn))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                inventoryItems.Add(new InventoryItem
+                                {
+                                    InventoryId = reader.GetInt32(0),
+                                    Name = reader.GetString(1),
+                                    Quantity = reader.GetInt32(2)
+                                });
+                            }
+                        }
+                    }
+                }
+
+                InventoryDataGrid.ItemsSource = inventoryItems;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CreateOrderPanel.Visibility = Visibility.Visible;
+            OrderStackPanel.Visibility = Visibility.Collapsed;
+        }
+    }
+    public class Order
+    {
+        public int OrderId { get; set; }
+        public int UserId { get; set; }
+        public DateTime OrderDate { get; set; }
+        public int TotalAmount { get; set; }
+    }
+    public class InventoryItem
+    {
+        public int InventoryId { get; set; }
+        public string Name { get; set; }
+        public int Quantity { get; set; }
     }
 }
