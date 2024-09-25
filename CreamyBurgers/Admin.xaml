@@ -36,12 +36,17 @@
         <!-- NavBar -->
         <StackPanel Background="SaddleBrown" Width="200" Grid.Column="0" HorizontalAlignment="Left">
             <Button Style="{DynamicResource UserButtonStyle}" Content="Felhasználók" />
-            <Button Style="{DynamicResource HomeButtonStyle}" Content="Alapanyagok"/>
-            <Button Style="{DynamicResource OrderButtonStyle}" Content="Eddigi Rendelés" />
+            <Button Style="{DynamicResource HomeButtonStyle}" Content="Alapanyagok" />
+            <Button Style="{DynamicResource OrderButtonStyle}" Content="Eddigi Rendelés" Click="OrdersButton_Click"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom">
             <Button Style="{DynamicResource NavLogoutButtonStyle}" Content="Kijelentkezés" Click="Logout_buttonClick"  VerticalAlignment="Bottom" />
         </StackPanel>
+        <Grid Grid.Column="1" Background="Wheat" Margin="0,100,0,0" x:Name="OrderListContainer">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="OrderStackPanel" Margin="10" />
+            </ScrollViewer>
+        </Grid>
 
         <!-- Main Content -->
         <Grid Grid.Column="1">

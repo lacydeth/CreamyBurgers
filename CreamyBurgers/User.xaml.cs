@@ -19,6 +19,8 @@ namespace CreamyBurgers
             MainPanel(true);
             LoadProducts();
             LoadData();
+            LoadUserOrders();
+            OrdersPanel(false);
         }
 
         private void LoadData()
