@@ -1,12 +1,61 @@
 ﻿<Window x:Class="CreamyBurgers.Admin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CreamyBurgers"
-        mc:Ignorable="d"
-        Title="Admin" Height="450" Width="800">
-    <Grid>
-        
+        Title="Admin" Height="900" Width="1900" AllowsTransparency="False" Background="Transparent"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/StyleGrid.xaml"/>
+                <ResourceDictionary Source="Styles/StyleButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleTextBox.xaml"/>
+                <ResourceDictionary Source="Styles/StyleFont.xaml"/>
+                <ResourceDictionary Source="Styles/StyleCloseButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleMenuButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleLogoutButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleUserButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleOrderButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleHomeButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleLogoutNavButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleSaveButton.xaml"/>
+                <ResourceDictionary Source="Styles/StyleCard.xaml"/>
+                <ResourceDictionary Source="Styles/StylePayButton.xaml"/>
+                <ResourceDictionary Source="Styles/StylePlusMinusButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid x:Name="MainGrid" Style="{DynamicResource Grid}" Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="215" />
+        </Grid.ColumnDefinitions>
+
+        <!-- NavBar -->
+        <StackPanel Background="SaddleBrown" Width="200" Grid.Column="0" HorizontalAlignment="Left">
+            <Button Style="{DynamicResource UserButtonStyle}" Content="Felhasználók" />
+            <Button Style="{DynamicResource HomeButtonStyle}" Content="Alapanyagok"/>
+            <Button Style="{DynamicResource OrderButtonStyle}" Content="Eddigi Rendelés" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Bottom">
+            <Button Style="{DynamicResource NavLogoutButtonStyle}" Content="Kijelentkezés" Click="Logout_buttonClick"  VerticalAlignment="Bottom" />
+        </StackPanel>
+
+        <!-- Main Content -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image Source="Styles/Files/CreamyBurgersLogo.png" Width="174" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Row="0"/>
+        </Grid>
+
+        <Grid Background="Wheat" Grid.Column="2" Margin="5" x:Name="RightPanel">
+            <StackPanel HorizontalAlignment="Right">
+                <Button x:Name="CloseButton" Style="{DynamicResource CloseButtonStyle}" Click="CloseButton_Click" Margin="5,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
