@@ -35,7 +35,6 @@
                     <ColumnDefinition Width="215" />
                 </Grid.ColumnDefinitions>
 
-                <!-- NavBar -->
                 <DockPanel Background="SaddleBrown" Width="200" Grid.Column="0" x:Name="NavBar">
                     <Button Style="{DynamicResource HomeButtonStyle}" Content="Kezdőlap" Click="HomeButton_Click" DockPanel.Dock="Top"/>
                     <Button Style="{DynamicResource OrderButtonStyle}" Content="Rendeléseim" Click="OrdersButton_Click" DockPanel.Dock="Top"/>
@@ -43,9 +42,6 @@
                     <Button Style="{DynamicResource NavLogoutButtonStyle}" Content="Kijelentkezés" Click="LogoutButton_Click" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"/>
                 </DockPanel>
 
-
-
-                <!-- Main Content -->
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -119,7 +115,6 @@
                             <StackPanel x:Name="PaidOffersPanel" Orientation="Vertical" />
                         </ScrollViewer>
                     </DockPanel>
-
                 </Grid>
 
                 <DockPanel Background="Wheat" Grid.Column="2" Margin="5" x:Name="CartPanel" LastChildFill="False">

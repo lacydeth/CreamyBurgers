@@ -41,11 +41,6 @@ namespace CreamyBurgers
                 OrderStackPanel.Visibility = Visibility.Collapsed;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("mentve");
-        }
-
         private void LoadOrders()
         {
             string connString = "Data Source=creamyburgers.db";
@@ -80,7 +75,7 @@ namespace CreamyBurgers
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading orders: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -117,7 +112,7 @@ namespace CreamyBurgers
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -145,16 +140,16 @@ namespace CreamyBurgers
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    LoadInventory(); // Refresh inventory after adding
+                    LoadInventory();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error adding inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Invalid quantity. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Hibás mennyiség!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -197,16 +192,16 @@ namespace CreamyBurgers
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    LoadInventory(); // Refresh inventory after updating
+                    LoadInventory();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error updating inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Invalid input. Please ensure all fields are filled correctly.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Hibás beviteli adatok!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -227,13 +222,13 @@ namespace CreamyBurgers
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    LoadInventory(); // Refresh inventory after deletion
+                    LoadInventory();
                     NameTextBox.Clear();
                     QuantityTextBox.Clear();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error deleting inventory: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

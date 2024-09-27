@@ -34,8 +34,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Background="SaddleBrown" Width="200" Grid.Column="0" HorizontalAlignment="Left">
-            <Button Style="{DynamicResource UserButtonStyle}" Content="Felhasználók"/>
-            <Button Style="{DynamicResource HomeButtonStyle}" Content="Információk" Click="Button_Click" />
+            <Button Style="{DynamicResource UserButtonStyle}" Content="Admin felület" Click="Button_Click" />
         </StackPanel>
 
         <StackPanel VerticalAlignment="Bottom">
@@ -64,20 +63,20 @@
         <DockPanel x:Name="CreateOrderPanel" Background="Transparent" Visibility="Collapsed" Grid.Column="1" VerticalAlignment="Top" Margin="0,100,0,0">
             <Grid>
                 <TabControl>
-                    <TabItem Header="Orders">
+                    <TabItem Header="Rendelések">
                         <Grid>
                             <DataGrid x:Name="OrdersDataGrid" AutoGenerateColumns="False" CanUserAddRows="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="100"/>
-                                    <DataGridTextColumn Header="User ID" Binding="{Binding UserId}" Width="100"/>
-                                    <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate}" Width="150"/>
-                                    <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount}" Width="100"/>
+                                    <DataGridTextColumn Header="Rendelés azon." Binding="{Binding OrderId}" Width="100"/>
+                                    <DataGridTextColumn Header="Felhasználó azon." Binding="{Binding UserId}" Width="100"/>
+                                    <DataGridTextColumn Header="Rendelés dátuma" Binding="{Binding OrderDate}" Width="150"/>
+                                    <DataGridTextColumn Header="Összeg" Binding="{Binding TotalAmount}" Width="100"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>
                     </TabItem>
 
-                    <TabItem Header="Inventory">
+                    <TabItem Header="Alapanyagok">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
@@ -86,9 +85,9 @@
                             <DataGrid Grid.Row="1" x:Name="InventoryDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
                                       SelectionChanged="InventoryDataGrid_SelectionChanged">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Inventory ID" Binding="{Binding InventoryId}" Width="100"/>
-                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
-                                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="100"/>
+                                    <DataGridTextColumn Header="Készlet azon." Binding="{Binding InventoryId}" Width="100"/>
+                                    <DataGridTextColumn Header="Név" Binding="{Binding Name}" Width="200"/>
+                                    <DataGridTextColumn Header="Mennyiség" Binding="{Binding Quantity}" Width="100"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 

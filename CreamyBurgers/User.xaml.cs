@@ -12,8 +12,6 @@ namespace CreamyBurgers
     {
         private double totalAmount = 0;
         public List<(string Name, int Price)> CartItems = new List<(string Name, int Price)>();
-
-
         public User()
         {
             InitializeComponent();
@@ -74,9 +72,9 @@ namespace CreamyBurgers
                     }
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void LoadProducts()
@@ -217,7 +215,7 @@ namespace CreamyBurgers
         {
             if (CartItems.Count == 0)
             {
-                MessageBox.Show("Your cart is empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("A kosarad üres!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -228,13 +226,12 @@ namespace CreamyBurgers
                 {
                     sqlConn.Open();
 
-                    // Start a transaction to ensure atomicity
                     using (var transaction = sqlConn.BeginTransaction())
                     {
                         string insertOrderQuery = @"
-                    INSERT INTO orders (userId, orderDate, totalAmount) 
-                    VALUES (@userId, @orderDate, @totalAmount);
-                    SELECT last_insert_rowid()";
+                                                    INSERT INTO orders (userId, orderDate, totalAmount) 
+                                                    VALUES (@userId, @orderDate, @totalAmount);
+                                                    SELECT last_insert_rowid()";
 
                         long orderId;
                         using (var orderCmd = new SqliteCommand(insertOrderQuery, sqlConn, transaction))
@@ -246,29 +243,26 @@ namespace CreamyBurgers
                             orderId = (long)orderCmd.ExecuteScalar();
                             if (orderId <= 0)
                             {
-                                MessageBox.Show("Failed to create order!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show($"Hiba a rendelés leadása során!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
                         }
 
-                        // Deduct stock and insert order items
                         foreach (var cartItem in CartItems)
                         {
                             int productId = GetProductId(cartItem.Name);
                             if (productId == 0)
                             {
-                                MessageBox.Show($"Product not found: {cartItem.Name}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show($"Termék megtalálható: {cartItem.Name}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                                 continue;
                             }
 
-                            // Get the required ingredients for the product
                             var requiredIngredients = GetProductIngredients(productId, sqlConn, transaction);
 
-                            // Check stock and deduct
                             if (!DeductInventoryStock(requiredIngredients, sqlConn, transaction))
                             {
-                                MessageBox.Show($"Not enough stock to fulfill the order for {cartItem.Name}.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                transaction.Rollback(); // Cancel the entire order if stock is insufficient
+                                MessageBox.Show($"Nincs megfelelő mennyiség készletén a termékhez: {cartItem.Name}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                                transaction.Rollback();
                                 return;
                             }
 
@@ -276,8 +270,8 @@ namespace CreamyBurgers
                             int quantity = 1;
 
                             string insertOrderItemQuery = @"
-                        INSERT INTO orderItems (orderId, productId, quantity, unitPrice, subtotal) 
-                        VALUES (@orderId, @productId, @quantity, @unitPrice, @subtotal)";
+                                                            INSERT INTO orderItems (orderId, productId, quantity, unitPrice, subtotal) 
+                                                            VALUES (@orderId, @productId, @quantity, @unitPrice, @subtotal)";
 
                             using (var orderItemCmd = new SqliteCommand(insertOrderItemQuery, sqlConn, transaction))
                             {
@@ -291,7 +285,7 @@ namespace CreamyBurgers
                             }
                         }
 
-                        transaction.Commit(); // Commit transaction if all goes well
+                        transaction.Commit();
 
                         CartItems.Clear();
                         UpdateCartDisplay();
@@ -299,13 +293,13 @@ namespace CreamyBurgers
                         TotalPriceText.Text = "0 Ft";
                         LoadUserOrders();
                         OrdersPanel(false);
-                        MessageBox.Show("Order placed successfully", "Order", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Sikeresen leadta rendelését!", "Rendelés", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private List<(int inventoryId, int quantityNeeded)> GetProductIngredients(int productId, SqliteConnection sqlConn, SqliteTransaction transaction)
@@ -337,7 +331,6 @@ namespace CreamyBurgers
                 int inventoryId = ingredient.inventoryId;
                 int quantityNeeded = ingredient.quantityNeeded;
 
-                // Check the current stock
                 string checkStockQuery = "SELECT quantity FROM inventory WHERE id = @inventoryId";
                 using (var checkCmd = new SqliteCommand(checkStockQuery, sqlConn, transaction))
                 {
@@ -346,10 +339,9 @@ namespace CreamyBurgers
 
                     if (currentStock < quantityNeeded)
                     {
-                        return false; // Insufficient stock
+                        return false;
                     }
 
-                    // Deduct stock
                     string updateStockQuery = "UPDATE inventory SET quantity = quantity - @quantityNeeded WHERE id = @inventoryId";
                     using (var updateCmd = new SqliteCommand(updateStockQuery, sqlConn, transaction))
                     {
@@ -360,7 +352,7 @@ namespace CreamyBurgers
                 }
             }
 
-            return true; // Stock deducted successfully
+            return true; 
         }
 
 
@@ -381,7 +373,7 @@ namespace CreamyBurgers
                     }
                     else
                     {
-                        throw new Exception($"Product ID not found for {productName}");
+                        throw new Exception($"Product ID nem található: {productName}");
                     }
                 }
             }
@@ -465,12 +457,12 @@ namespace CreamyBurgers
                             addressCmd.ExecuteNonQuery();
                         }
                     }
-                    MessageBox.Show("Data updated successfully!");
+                    MessageBox.Show($"Adatait sikeresen frissítette!", "Profil", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                MessageBox.Show(err.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private int GetProductPrice(string productName)
@@ -490,7 +482,6 @@ namespace CreamyBurgers
                     }
                     else
                     {
-                        MessageBox.Show($"Price not found for {productName}.");
                         return 0;
                     }
                 }
@@ -640,7 +631,7 @@ namespace CreamyBurgers
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void MainPanel(bool isVisible)
