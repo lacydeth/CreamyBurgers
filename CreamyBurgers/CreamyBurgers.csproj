@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="pics\Csípős Krémes Burger.jfif" />
     <None Remove="Styles\Files\Cart.png" />
     <None Remove="Styles\Files\close.png" />
     <None Remove="Styles\Files\CreamyBurgersLogo.png" />
@@ -39,6 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="pics\Csípős Krémes Burger.jfif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Styles\Files\Cart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

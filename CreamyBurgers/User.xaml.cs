@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CreamyBurgers
 {
@@ -112,17 +113,6 @@ namespace CreamyBurgers
             };
             StackPanel stackPanel = new StackPanel();
 
-            Border imagePlaceholder = new Border
-            {
-                Height = 150,
-                Width = 150,
-                BorderBrush = System.Windows.Media.Brushes.Black,
-                BorderThickness = new Thickness(1),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(20)
-            };
-            stackPanel.Children.Add(imagePlaceholder);
-
             TextBlock productNameText = new TextBlock
             {
                 Text = name,
@@ -131,6 +121,22 @@ namespace CreamyBurgers
                 HorizontalAlignment = HorizontalAlignment.Center
             };
             stackPanel.Children.Add(productNameText);
+
+            Image productImage = new Image
+            {
+                Height = 150,
+                Width = 150,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(20),
+                Stretch = Stretch.UniformToFill
+            };
+            string basePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pics");
+            string imagePath = System.IO.Path.Combine(basePath, name + ".jfif");
+
+            productImage.Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+           
+
+            stackPanel.Children.Add(productImage);
 
             TextBlock productPriceText = new TextBlock
             {
